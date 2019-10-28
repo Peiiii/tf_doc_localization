@@ -25,8 +25,7 @@ class Detector:
         img = Image.fromarray(np.uint8(img))
         img.show()
     def save(self,img,f):
-        img = Image.fromarray(np.uint8(img))
-        img.save(f)
+        cv2.imencode('.jpg',img)[1].tofile(f)
     def predict(self,img):
 
         img_nd=img
@@ -80,7 +79,8 @@ class Detector:
         hm = hm.astype('uint8')
         color_heatmap = cv2.applyColorMap(hm, cv2.COLORMAP_JET)
         color_heatmap = cv2.resize(color_heatmap, (600, 800))
-
+        # self.show(img_nd_bgr)
+        # self.show(color_heatmap)
         return cropped_image
 
     def _load_graph(self,frozen_graph_filename="frozen_model.pb"):
@@ -171,7 +171,9 @@ def demo():
 
 if __name__ == "__main__":
     D = Detector()
-    y = D.predict_from_file('data/demo/2.jpg')
+    f='data/demo/4.jpg'
+    img=cv2.imread(f)
+    D.show(img)
+    y = D.predict_from_file(f)
     D.show(y)
-    # demo()
     pass

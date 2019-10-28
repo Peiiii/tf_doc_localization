@@ -1,47 +1,23 @@
-# tf_doc_localisation
+## 表格提取
 
-### Requirements
+- 快速测试
 
-1. tensorflow version==1.12.0
-2. PIL (pip install PIL)
-3. download [part of the dataset](https://drive.google.com/drive/u/0/folders/1D7tv5NkFlnVWZQ3ViIO2EHpYK0nlGRfV)，extract it to $MIDV_DATASET
-4. Edit tf_doc_localisation/receipt_dataset.py line 18 
+运行命令:
+python test.py
+处理演示图片并显示结果
+python main.py data/demo/1.jpg result.jpg
+处理单张图片
+python main.py data/demo data/results
+处理一个文件夹下的图片，保存结果到另一文件夹
 
-``` python
-midv_dir = MIDV_DATASET ## for example: /data/your_download_directory/midv_500
+- 使用示例
+```python
+from test import Detector
+D=Detector()
+img=D.predict_from_file('data/demo/1.jpg')
+D.save(img,'result.jpg')
 ```
 
-### how to train the network
-
-1. cd tf_doc_localisation
-2. mkdir data
-3. python synthesis_data.py
-4. python receipt_dataset.py
-5. python train.py
-
-### how to test
-
-1. python test.py
-
-
-some test samples.
-
-#### case 1
-
-![case1](https://raw.githubusercontent.com/RRanddom/tf_doc_localisation/master/raw_data/demo_images/case1.png)
-
-#### case 2
-
-![case2](https://raw.githubusercontent.com/RRanddom/tf_doc_localisation/master/raw_data/demo_images/case2.png)
-
-#### failure case
-
-![failure case](https://raw.githubusercontent.com/RRanddom/tf_doc_localisation/master/raw_data/demo_images/case3.png)
-
-### todo
-
-1. add evaluation code.
-2. 🚧 🚧 🚧 🚧 🚧
-
-
-# tf_doc_localization
+- 原理说明
+> 使用基于深度学习的关键点检测方法检测文档图像的四个角点，再对其进行透视变换和裁剪，得到文档区域。
+   
